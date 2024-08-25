@@ -1,12 +1,40 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 
 const SignUp: React.FC = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+    try {
+      await axios.post('http://localhost:27017/api/auth/sign-up', formData);
+      alert('Sign up successful');
+    } catch (error) {
+      alert('Sign up failed');
+    }
+  };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="w-[700px] shadow-lg bg-neutral-50 p-6 rounded-lg">
         <h1 className="font-title text-2xl mb-2">Sign Up</h1>
         <p className="mb-6 text-sm">Join our e-commerce platform to enjoy exclusive deals and offers!</p>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-6">
             <div>
               <label htmlFor="first-name" className="block mb-2">
@@ -14,11 +42,13 @@ const SignUp: React.FC = () => {
               </label>
               <input
                 type="text"
-                id="first-name"
-                name="first-name"
+                id="firstName"
+                name="firstName"
                 className="w-full px-4 h-[44px] border rounded-md"
                 placeholder="John"
                 required
+                value={formData.firstName}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -27,11 +57,13 @@ const SignUp: React.FC = () => {
               </label>
               <input
                 type="text"
-                id="last-name"
-                name="last-name"
+                id="lastName"
+                name="lastName"
                 className="w-full px-4 h-[44px] border rounded-md"
                 placeholder="Doe"
                 required
+                value={formData.lastName}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -45,6 +77,8 @@ const SignUp: React.FC = () => {
                 className="w-full px-4 h-[44px] border rounded-md"
                 placeholder="john.doe@example.com"
                 required
+                value={formData.email}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -59,6 +93,8 @@ const SignUp: React.FC = () => {
                 placeholder="1234567890"
                 pattern="\d*"
                 required
+                value={formData.phone}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -72,6 +108,8 @@ const SignUp: React.FC = () => {
                 className="w-full px-4 h-[44px] border rounded-md"
                 placeholder="••••••••"
                 required
+                value={formData.password}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -80,11 +118,13 @@ const SignUp: React.FC = () => {
               </label>
               <input
                 type="password"
-                id="confirm-password"
-                name="confirm-password"
+                id="confirmPassword"
+                name="confirmPassword"
                 className="w-full px-4 h-[44px] border rounded-md"
                 placeholder="••••••••"
                 required
+                value={formData.confirmPassword}
+                onChange={handleChange}
               />
             </div>
           </div>
