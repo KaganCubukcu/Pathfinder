@@ -18,6 +18,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/product', productRoutes);
+app.use('/api/best-sellers', productRoutes);
 
 // Serve static assets
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
