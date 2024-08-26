@@ -4,12 +4,14 @@ import SignUp from './pages/SignUp';
 import MainLayout from './layouts/MainLayout';
 import Store from './pages/Store';
 import ProductDetail from './pages/ProductDetail';
+import Home from './pages/Home';
 
 export function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/store" element={<Store />} />
