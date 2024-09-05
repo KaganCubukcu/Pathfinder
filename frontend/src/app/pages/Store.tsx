@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import ProductCard from '../components/shared/ProductCard';
-import { Product } from '../types/Product.interface';
+import { RootState } from '../store/store';
+import { AppDispatch, fetchProducts } from '../store/features/product/productSlice';
+import Loading from '../components/shared/Loading';
 
 const Store: React.FC = () => {
-  const [data, setData] = useState<Product[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
+  const { products, loading, error } = useSelector((state: RootState) => state.product);
 
   useEffect(() => {
-    fetch('http://localhost:27017/api/products')
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => setData(data))
-      .catch((error) => {
-        console.error('Veri çekerken bir hata oluştu:', error);
-      });
-  }, []);
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <div className="text-white">Error: {error}</div>;
+  }
 
   return (
     <div>
       <h1>Store</h1>
       <div className="flex flex-wrap gap-4 justify-center mb-10">
-        {data.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        {products.map((product) => (
+          <ProductCard key={`product-${product.name}`} product={product} />
         ))}
       </div>
     </div>
