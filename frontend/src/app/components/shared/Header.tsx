@@ -1,8 +1,10 @@
 import React from 'react';
 import { FaBagShopping, FaUser } from 'react-icons/fa6';
 import { FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className="shadow-lg rounded-lg bg-neutral-50">
       <header className="flex justify-between items-center p-4 bg-black rounded-t-lg">
@@ -25,7 +27,7 @@ const Header: React.FC = () => {
           <span className="cursor-pointer text-white">
             <FaSearch />
           </span>
-          <span className="cursor-pointer text-white">
+          <span className="cursor-pointer text-white" onClick={() => navigate('/cart')}>
             <FaBagShopping />
           </span>
           <span className="cursor-pointer text-white">

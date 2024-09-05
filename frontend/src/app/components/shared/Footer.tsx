@@ -4,7 +4,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 
 const Footer: React.FC = () => {
   return (
-    <div className="rounded-lg shadow-lg bg-black text-white bottom-0 left-0 right-0">
+    <div className="rounded-lg shadow-lg bg-black text-white bottom-0 left-0 right-0 mt-10">
       <footer className="py-8 px-12">
         <div className="flex justify-between">
           <div>
