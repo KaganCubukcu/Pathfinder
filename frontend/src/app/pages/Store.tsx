@@ -15,7 +15,7 @@ const Store: React.FC = () => {
       })
       .then((data) => setData(data))
       .catch((error) => {
-        console.error('Veri çekerken bir hata oluştu:', error);
+        console.error('Error fetching products:', error);
       });
   }, []);
 

@@ -3,10 +3,10 @@ import { Product } from '../../types/Product.interface';
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   return (
-    <div className="w-[300px] rounded-lg shadow-lg p-4" key={product.id}>
+    <div className="w-[300px] rounded-lg shadow-lg p-4 text-white" key={product.id}>
       <img src={product.image} alt={product.name} className="w-full h-[200px] object-cover rounded-md mb-4" />
       <h2 className="text-lg font-title">
-        <a href={`/product/${product.name}`} className="text-black">
+        <a href={`/product/${product.name}`} className="text-white">
           {product.name}
         </a>
       </h2>
